@@ -15,6 +15,8 @@ fun actionBottomBarComponent(
     modifier: Modifier = Modifier,
     leadingText: String? = null,
     trailingText: String? = null,
+    leadingTextEnabled: Boolean = true,
+    trailingTextEnabled: Boolean = false,
     arrangement:  Arrangement.HorizontalOrVertical = Arrangement.Center,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit
@@ -28,6 +30,7 @@ fun actionBottomBarComponent(
             TextButton(
                 onClick = { onDismissRequest() },
                 modifier = Modifier.padding(8.dp),
+                enabled = leadingTextEnabled
             ) {
                 Text(it)
             }
@@ -37,6 +40,7 @@ fun actionBottomBarComponent(
             TextButton(
                 onClick = { onConfirmation() },
                 modifier = Modifier.padding(8.dp),
+                enabled = trailingTextEnabled
             ) {
                 Text(it)
             }
