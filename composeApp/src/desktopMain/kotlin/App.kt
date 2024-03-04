@@ -20,10 +20,6 @@ fun App() {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
             val attendants = MutableStateFlow(attendantDao.fetch())
 
-            LaunchedEffect(attendants) {
-                attendants.value = attendantDao.fetch()
-            }
-
             homeScreen(
                 attendants = attendants.value.value,
                 onAttendantClick = { openAttendantDetail.value = it }
