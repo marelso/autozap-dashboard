@@ -11,7 +11,7 @@ import data.Attendant
 @Composable
 fun attendantDetailComponent(
     attendant: Attendant,
-    onConfirmation: (Int, String, String, String) -> Unit,
+    onConfirmation: (Attendant) -> Unit,
     onDismissRequest: () -> Unit
 ) {
     val name = remember { mutableStateOf(TextFieldValue()) }
@@ -27,7 +27,16 @@ fun attendantDetailComponent(
         title = attendant.name,
         content = { attendantContentComponent(attendant = attendant, name = name, bio = bio, link = link) },
         isConfirmationEnabled = isConfirmationEnabled.value,
-        onConfirmation = { onConfirmation(attendant.id, name.value.text, bio.value.text, link.value.text) },
+        onConfirmation = {
+            onConfirmation(
+                Attendant(
+                    id = attendant.id,
+                    name = name.value.text,
+                    bio = bio.value.text,
+                    link = link.value.text
+                )
+            )
+        },
         onDismissRequest = { onDismissRequest() }
     )
 }
