@@ -19,7 +19,12 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation("io.insert-koin:koin-core:3.5.3")
+
+            with(libs) {
+                implementation(room.runtime)
+                implementation(room.ktx)
+                implementation(sqlite)
+            }
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
