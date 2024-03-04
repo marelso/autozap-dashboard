@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun headlineComponent(
+fun headline0Component(
     modifier: Modifier = Modifier,
     title: String,
     hasUnderlineHighlight: Boolean = false,
