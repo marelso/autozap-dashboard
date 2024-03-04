@@ -32,7 +32,9 @@ fun attendantItemComponent(
         .fillMaxWidth()
         .height(112.dp)
         .clip(shape = RoundedCornerShape(10.dp))
-        .clickable { onClick.invoke(attendant) }
+        .clickable {
+            onClick(attendant)
+        }
     ) {
         Row(
             modifier = Modifier
