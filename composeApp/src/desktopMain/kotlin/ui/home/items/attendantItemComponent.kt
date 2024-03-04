@@ -59,8 +59,8 @@ fun attendantItemComponent(
                 content = { Icon(
                     modifier = Modifier.size(40.dp),
                     imageVector = Icons.Filled.Delete,
-                    tint = Color.Red,
-                    contentDescription = "Favorite"
+                    tint = MaterialTheme.colors.error,
+                    contentDescription = "Delete ${attendant.name}"
                 ) },
                 onClick = { onDelete(attendant) }
             )
