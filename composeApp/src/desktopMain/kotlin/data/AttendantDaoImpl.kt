@@ -31,6 +31,11 @@ class AttendantDaoImpl(private val connection: Connection) : AttendantDao {
         }
     }
 
+    override fun update(attendant: Attendant) {
+        val query = "UPDATE attendant set name = '${attendant.name}', bio = '${attendant.bio}', link = '${attendant.link}' WHERE id = ${attendant.id}"
+        connection.prepareStatement(query).executeUpdate()
+    }
+
     override fun deleteById(id: Int) {
         val query = "DELETE FROM attendant WHERE attendantId = ?"
         connection.prepareStatement(query).use { statement ->
