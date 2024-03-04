@@ -26,7 +26,8 @@ fun homeScreen(
     modifier: Modifier = Modifier,
     attendants: List<Attendant>,
     onAttendantClick: (Attendant) -> Unit,
-    onCreateClick: () -> Unit
+    onCreateClick: () -> Unit,
+    onAttendantDeleteClick: (Attendant) -> Unit
 ) {
     LazyColumn(modifier.padding(32.dp).fillMaxWidth()) {
         item {
@@ -73,10 +74,8 @@ fun homeScreen(
         attendantsList(
             attendants = attendants,
             onConfirmation = {},
-            onDelete = {},
-            onClick = {
-                onAttendantClick(it)
-            }
+            onDelete = { onAttendantDeleteClick(it) },
+            onClick = { onAttendantClick(it) }
         )
     }
 }
@@ -84,7 +83,7 @@ fun homeScreen(
 private fun LazyListScope.attendantsList(
     attendants: List<Attendant>,
     onConfirmation: () -> Unit,
-    onDelete: () -> Unit,
+    onDelete: (Attendant) -> Unit,
     onClick: (Attendant) -> Unit
 ) = items(
     count = attendants.size,
@@ -95,7 +94,7 @@ private fun LazyListScope.attendantsList(
             onClick = {
                 onClick(it)
             },
-            onDelete = { onDelete() }
+            onDelete = { onDelete(it) }
         )
     }
 )
