@@ -35,7 +35,6 @@ fun App() {
                     onConfirmation = { attendant ->
                         println("${attendant.id} ${attendant.name} ${attendant.bio} ${attendant.link}")
                         attendantDao.update(attendant)
-                        attendants.value = attendants.value
                         openAttendantDetail.value = null
                     },
                     onDismissRequest = { openAttendantDetail.value = null },
