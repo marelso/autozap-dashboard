@@ -8,6 +8,7 @@ import data.Attendant
 import data.DesktopDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import ui.home.attendantCreateComponent
 import ui.home.attendantDetailComponent
 import ui.home.homeScreen
 
@@ -15,6 +16,7 @@ import ui.home.homeScreen
 @Preview
 fun App() {
     val openAttendantDetail = mutableStateOf<Attendant?>(null)
+    val openAttendantCreate = mutableStateOf(false)
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
@@ -34,6 +36,13 @@ fun App() {
                         openAttendantDetail.value = null
                     },
                     onDismissRequest = { openAttendantDetail.value = null },
+                )
+            }
+
+            if(openAttendantCreate.value) {
+                attendantCreateComponent(
+                    onConfirmation = {},
+                    onDismissRequest = {}
                 )
             }
         }
