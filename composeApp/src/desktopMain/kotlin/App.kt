@@ -10,13 +10,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ui.home.attendantCreateComponent
 import ui.home.attendantDetailComponent
+import ui.home.attendantRemoveComponent
 import ui.home.homeScreen
 
 @Composable
 @Preview
 fun App() {
     val openAttendantDetail = mutableStateOf<Attendant?>(null)
+    val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
+
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
@@ -25,7 +28,8 @@ fun App() {
             homeScreen(
                 attendants = attendants.value.value,
                 onAttendantClick = { openAttendantDetail.value = it },
-                onCreateClick = { openAttendantCreate.value = true }
+                onCreateClick = { openAttendantCreate.value = true },
+                onAttendantDeleteClick = { openAttendantRemove.value = it }
             )
 
             openAttendantDetail.value?.let {
@@ -42,8 +46,22 @@ fun App() {
 
             if (openAttendantCreate.value) {
                 attendantCreateComponent(
-                    onConfirmation = {},
+                    onConfirmation = {
+                        attendantDao.insert(it)
+                        openAttendantCreate.value = false
+                    },
                     onDismissRequest = { openAttendantCreate.value = false }
+                )
+            }
+
+            openAttendantRemove.value?.let {
+                attendantRemoveComponent(
+                    attendant = it,
+                    onConfirmation = {
+                        attendantDao.deleteById(it)
+                        openAttendantRemove.value = null
+                    },
+                    onDismissRequest = { openAttendantRemove.value = null }
                 )
             }
         }
