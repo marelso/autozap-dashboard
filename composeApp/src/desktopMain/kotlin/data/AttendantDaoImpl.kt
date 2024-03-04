@@ -7,7 +7,7 @@ import java.sql.Connection
 class AttendantDaoImpl(private val connection: Connection) : AttendantDao {
     override fun fetch(): MutableState<List<Attendant>> {
         val attendants = mutableListOf<Attendant>()
-        val query = "SELECT * FROM attendant"
+        val query = "SELECT * FROM attendant ORDER BY id DESC"
         connection.createStatement().use { statement ->
             statement.executeQuery(query).use { resultSet ->
                 while (resultSet.next()) {
@@ -24,11 +24,8 @@ class AttendantDaoImpl(private val connection: Connection) : AttendantDao {
     }
 
     override fun insert(attendant: Attendant) {
-        val query = "INSERT INTO attendant (name) VALUES (?)"
-        connection.prepareStatement(query).use { statement ->
-            statement.setString(1, attendant.name)
-            statement.executeUpdate()
-        }
+        val query = "INSERT INTO attendant (name, bio, link) VALUES ('${attendant.name}', '${attendant.bio}', '${attendant.link}')"
+        connection.prepareStatement(query).executeUpdate()
     }
 
     override fun update(attendant: Attendant) {
@@ -37,10 +34,7 @@ class AttendantDaoImpl(private val connection: Connection) : AttendantDao {
     }
 
     override fun deleteById(id: Int) {
-        val query = "DELETE FROM attendant WHERE attendantId = ?"
-        connection.prepareStatement(query).use { statement ->
-            statement.setInt(1, id)
-            statement.executeUpdate()
-        }
+        val query = "DELETE FROM attendant WHERE id = $id"
+        connection.prepareStatement(query).executeUpdate()
     }
 }
