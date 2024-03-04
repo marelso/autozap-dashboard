@@ -4,16 +4,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import components.actionDialogComponent
 import components.headline0Component
 import components.headline1Component
 import components.subtitleComponent
 import data.Attendant
-import data.DesktopDatabase
 import ui.home.items.attendantItemComponent
 
 @Composable
