@@ -24,7 +24,8 @@ fun App() {
 
             homeScreen(
                 attendants = attendants.value.value,
-                onAttendantClick = { openAttendantDetail.value = it }
+                onAttendantClick = { openAttendantDetail.value = it },
+                onCreateClick = { openAttendantCreate.value = true }
             )
 
             openAttendantDetail.value?.let {
@@ -39,10 +40,10 @@ fun App() {
                 )
             }
 
-            if(openAttendantCreate.value) {
+            if (openAttendantCreate.value) {
                 attendantCreateComponent(
                     onConfirmation = {},
-                    onDismissRequest = {}
+                    onDismissRequest = { openAttendantCreate.value = false }
                 )
             }
         }
