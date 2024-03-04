@@ -24,6 +24,7 @@ kotlin {
                 implementation(room.runtime)
                 implementation(room.ktx)
                 implementation(sqlite)
+                implementation(flow.lifecycle)
             }
         }
         desktopMain.dependencies {
