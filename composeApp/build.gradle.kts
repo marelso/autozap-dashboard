@@ -41,6 +41,10 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.autozap.dashboard"
             packageVersion = "1.0.0"
+
+            windows {
+                packageVersion = "1.0.0"
+            }
         }
     }
 }
