@@ -14,18 +14,18 @@ fun attendantDetailComponent(
     onConfirmation: (Attendant) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    val name = remember { mutableStateOf(TextFieldValue()) }
-    val bio = remember { mutableStateOf(TextFieldValue()) }
-    val link = remember { mutableStateOf(TextFieldValue()) }
+    val name = remember { mutableStateOf(TextFieldValue(attendant.name)) }
+    val bio = remember { mutableStateOf(TextFieldValue(attendant.bio)) }
+    val link = remember { mutableStateOf(TextFieldValue(attendant.link)) }
     val isConfirmationEnabled = remember {
         derivedStateOf {
-            (name.value.text.isNotBlank()) && (bio.value.text.isNotBlank()) && (link.value.text.isNotBlank())
+            (name.value.text != attendant.name && name.value.text.isNotBlank()) && (bio.value.text != attendant.bio && bio.value.text.isNotBlank()) && (link.value.text != attendant.link && link.value.text.isNotBlank())
         }
     }
 
     actionDialogComponent(
         title = attendant.name,
-        content = { attendantContentComponent(attendant = attendant, name = name, bio = bio, link = link) },
+        content = { attendantContentComponent(name = name, bio = bio, link = link) },
         isConfirmationEnabled = isConfirmationEnabled.value,
         onConfirmation = {
             onConfirmation(

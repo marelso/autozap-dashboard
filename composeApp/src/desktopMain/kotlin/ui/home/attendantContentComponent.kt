@@ -15,34 +15,23 @@ import data.Attendant
 @Composable
 fun attendantContentComponent(
     modifier: Modifier = Modifier,
-    attendant: Attendant?,
     name: MutableState<TextFieldValue>,
     bio: MutableState<TextFieldValue>,
     link: MutableState<TextFieldValue>
 ) {
     Column(modifier.padding(8.dp)) {
-        OutlinedTextField(
-            value = name.value,
-            onValueChange = {
-                name.value = it
-            },
-            label = { Text(attendant?.name ?: "Name") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
+        OutlinedTextField(value = name.value, onValueChange = {
+            name.value = it
+        }, label = { Text("Name") }, modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
-        OutlinedTextField(
-            value = bio.value,
+        OutlinedTextField(value = bio.value,
             onValueChange = { bio.value = it },
-            label = { Text(attendant?.bio ?: "Bio") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
+            label = { Text("Bio") },
+            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
-        OutlinedTextField(
-            value = link.value,
+        OutlinedTextField(value = link.value,
             onValueChange = { link.value = it },
-            label = { Text(attendant?.link ?: "Link") },
+            label = { Text("Link") },
             modifier = Modifier.fillMaxWidth()
         )
     }
