@@ -19,7 +19,7 @@ fun headline1Component(
     title: String,
     hasUnderlineHighlight: Boolean = false,
     color: Color? = null,
-    fontWeight: Int = 400,
+    fontWeight: Int = 700,
     maxLines: Int = 1,
     textOverflow: TextOverflow = TextOverflow.Ellipsis,
     textAlign: TextAlign = TextAlign.Start,
