@@ -12,6 +12,7 @@ import androidx.compose.ui.window.Dialog
 fun actionDialogComponent(
     title: String? = null,
     content: @Composable () -> Unit,
+    isConfirmationEnabled: Boolean,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit
 ) {
@@ -24,6 +25,7 @@ fun actionDialogComponent(
                 actionBottomBarComponent(
                     trailingText = "Confirm",
                     leadingText = "Cancel",
+                    trailingTextEnabled = isConfirmationEnabled,
                     onConfirmation = onConfirmation,
                     onDismissRequest = onDismissRequest
                 )
