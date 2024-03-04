@@ -1,14 +1,12 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import data.Attendant
 import data.DesktopDatabase
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ui.home.attendantDetailComponent
 import ui.home.homeScreen
@@ -17,29 +15,28 @@ import ui.home.homeScreen
 @Preview
 fun App() {
     val openAttendantDetail = mutableStateOf<Attendant?>(null)
-    val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
-
-
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            val attendants = remember {
-                mutableStateOf<List<Attendant>>(emptyList())
-            }
+            val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
+            val attendants = MutableStateFlow(attendantDao.fetch())
 
-            LaunchedEffect(Unit) {
-                attendants.value = attendantDao.fetch().value
+            LaunchedEffect(attendants) {
+                attendants.value = attendantDao.fetch()
             }
 
             homeScreen(
-                attendants = attendants.value,
+                attendants = attendants.value.value,
                 onAttendantClick = { openAttendantDetail.value = it }
             )
 
             openAttendantDetail.value?.let {
                 attendantDetailComponent(
                     attendant = it,
-                    onConfirmation = { id, name, bio, link ->
-                        println("$id $name $bio $link")
+                    onConfirmation = { attendant ->
+                        println("${attendant.id} ${attendant.name} ${attendant.bio} ${attendant.link}")
+                        attendantDao.update(attendant)
+                        attendants.value = attendants.value
+                        openAttendantDetail.value = null
                     },
                     onDismissRequest = { openAttendantDetail.value = null },
                 )
