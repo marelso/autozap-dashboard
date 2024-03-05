@@ -19,7 +19,9 @@ fun attendantDetailComponent(
     val link = remember { mutableStateOf(TextFieldValue(attendant.link)) }
     val isConfirmationEnabled = remember {
         derivedStateOf {
-            (name.value.text != attendant.name && name.value.text.isNotBlank()) && (bio.value.text != attendant.bio && bio.value.text.isNotBlank()) && (link.value.text != attendant.link && link.value.text.isNotBlank())
+            (name.value.text != attendant.name || bio.value.text != attendant.bio || link.value.text != attendant.link).and(
+                name.value.text.isNotBlank() && bio.value.text.isNotBlank() && link.value.text.isNotBlank()
+            )
         }
     }
 
