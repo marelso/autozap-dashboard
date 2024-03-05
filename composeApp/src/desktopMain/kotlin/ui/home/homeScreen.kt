@@ -44,13 +44,13 @@ fun homeScreen(
             )
         }
         item {
-            Row(modifier = Modifier.padding(bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.padding(bottom = 16.dp, end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 headline1Component(
-                    modifier = Modifier.padding(bottom = 8.dp).weight(1f),
+                    modifier = Modifier.weight(1f),
                     title = "Manage current attendants"
                 )
                 Box(
-                    modifier = Modifier.padding(16.dp).size(50.dp).border(
+                    modifier = Modifier.size(50.dp).border(
                         border = BorderStroke(
                             width = 2.dp, color = MaterialTheme.colors.primary
                         ), shape = RoundedCornerShape(10.dp)
