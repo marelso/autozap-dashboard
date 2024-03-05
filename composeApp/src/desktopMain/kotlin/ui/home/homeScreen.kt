@@ -68,7 +68,6 @@ fun homeScreen(
 
         attendantsList(
             attendants = attendants,
-            onConfirmation = {},
             onDelete = { onAttendantDeleteClick(it) },
             onClick = { onAttendantClick(it) }
         )
@@ -77,7 +76,6 @@ fun homeScreen(
 
 private fun LazyListScope.attendantsList(
     attendants: List<Attendant>,
-    onConfirmation: () -> Unit,
     onDelete: (Attendant) -> Unit,
     onClick: (Attendant) -> Unit
 ) = items(
