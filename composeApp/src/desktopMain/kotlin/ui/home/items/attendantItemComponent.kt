@@ -8,13 +8,12 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.outlined.AccountBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import data.Attendant
@@ -42,7 +41,7 @@ fun attendantItemComponent(
         ) {
             Icon(
                 modifier = Modifier.size(80.dp),
-                imageVector = Icons.Outlined.AccountBox,
+                imageVector = Icons.Default.AccountBox,
                 contentDescription = "Attendant account",
                 tint = MaterialTheme.colors.primary
             )
@@ -57,7 +56,7 @@ fun attendantItemComponent(
             IconButton(
                 content = { Icon(
                     modifier = Modifier.size(40.dp),
-                    imageVector = Icons.Filled.Delete,
+                    imageVector = Icons.Default.Delete,
                     tint = MaterialTheme.colors.error,
                     contentDescription = "Delete ${attendant.name}"
                 ) },
