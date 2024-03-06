@@ -19,6 +19,9 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
 
             with(libs) {
                 implementation(room.runtime)
@@ -26,9 +29,6 @@ kotlin {
                 implementation(sqlite)
                 implementation(flow.lifecycle)
             }
-        }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
         }
     }
 }
