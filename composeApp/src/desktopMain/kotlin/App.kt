@@ -21,7 +21,7 @@ fun App() {
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
     val openFileDialog = mutableStateOf(false)
-    val isServiceRunning = mutableStateOf(false)
+    val isServiceRunning = mutableStateOf(isServiceRunning("autozap"))
 
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -79,5 +79,17 @@ fun App() {
                 )
             }
         }
+    }
+}
+
+private fun isServiceRunning(serviceName: String): Boolean {
+    try {
+        val process = Runtime.getRuntime().exec("sc query $serviceName")
+        val inputStream = process.inputStream.bufferedReader()
+        val output = inputStream.readText()
+        return output.contains("STATE") && output.contains("RUNNING")
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return false
     }
 }
