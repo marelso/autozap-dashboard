@@ -16,7 +16,7 @@ object WindowsServiceManager {
     fun stop(): Boolean {
         try {
             Runtime.getRuntime().exec("net stop $service")
-            return isRunning()
+            return !isRunning()
         } catch (e: Exception) {
             e.printStackTrace()
             return false
