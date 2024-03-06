@@ -3,23 +3,19 @@ package data
 object WindowsServiceManager {
     private const val service = "autozap.exe"
 
-    fun start(): Boolean {
+    fun start() {
         try {
             Runtime.getRuntime().exec("net start $service")
-            return !isRunning()
         } catch (e: Exception) {
             e.printStackTrace()
-            return false
         }
     }
 
-    fun stop(): Boolean {
+    fun stop() {
         try {
             Runtime.getRuntime().exec("net stop $service")
-            return isRunning()
         } catch (e: Exception) {
             e.printStackTrace()
-            return false
         }
     }
 

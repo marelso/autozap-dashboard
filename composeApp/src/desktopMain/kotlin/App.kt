@@ -32,8 +32,8 @@ fun App() {
                 onAttendantClick = { openAttendantDetail.value = it },
                 onCreateClick = { openAttendantCreate.value = true },
                 onAttendantDeleteClick = { openAttendantRemove.value = it },
-                onStartServiceClick = { isServiceRunning.value = WindowsServiceManager.start() },
-                onStopServiceClick = { isServiceRunning.value = WindowsServiceManager.stop() },
+                onStartServiceClick = { isServiceRunning.value = WindowsServiceManager.isRunning() },
+                onStopServiceClick = { isServiceRunning.value = WindowsServiceManager.isRunning() },
                 onOpenFileDialogClick = { openFileDialog.value = true }
             )
 
