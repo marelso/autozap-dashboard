@@ -1,6 +1,8 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -8,10 +10,7 @@ import data.Attendant
 import data.DesktopDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import ui.home.attendantCreateComponent
-import ui.home.attendantDetailComponent
-import ui.home.attendantRemoveComponent
-import ui.home.homeScreen
+import ui.home.*
 
 @Composable
 @Preview
@@ -19,11 +18,18 @@ fun App() {
     val openAttendantDetail = mutableStateOf<Attendant?>(null)
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
+    val openFileDialog = mutableStateOf(false)
 
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
             val attendants = MutableStateFlow(attendantDao.fetch())
+
+            Button(onClick = {
+                openFileDialog.value = true
+            }) {
+                Text("Click")
+            }
 
             homeScreen(
                 attendants = attendants.value.value,
@@ -62,6 +68,13 @@ fun App() {
                         openAttendantRemove.value = null
                     },
                     onDismissRequest = { openAttendantRemove.value = null }
+                )
+            }
+
+            if (openFileDialog.value) {
+                fileDialog(
+                    onSelectDirectory = { openFileDialog.value = false },
+                    onDismiss = { openFileDialog.value = false }
                 )
             }
         }
