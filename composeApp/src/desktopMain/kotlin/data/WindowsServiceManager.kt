@@ -5,7 +5,7 @@ object WindowsServiceManager {
 
     fun start() {
         try {
-            Runtime.getRuntime().exec("net start $service")
+            Runtime.getRuntime().exec("net start $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -13,7 +13,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            Runtime.getRuntime().exec("net stop $service")
+            Runtime.getRuntime().exec("net stop $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
