@@ -10,7 +10,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import data.Attendant
 
 @Composable
 fun attendantContentComponent(
