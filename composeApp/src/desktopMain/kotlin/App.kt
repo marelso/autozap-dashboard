@@ -1,15 +1,13 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import components.actionServiceControlComponent
 import data.Attendant
 import data.DesktopDatabase
+import data.WindowsServiceManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ui.home.*
@@ -21,7 +19,7 @@ fun App() {
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
     val openFileDialog = mutableStateOf(false)
-    val isServiceRunning = mutableStateOf(isServiceRunning("autozap"))
+    val isServiceRunning = mutableStateOf(WindowsServiceManager.isRunning())
 
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -34,8 +32,8 @@ fun App() {
                 onAttendantClick = { openAttendantDetail.value = it },
                 onCreateClick = { openAttendantCreate.value = true },
                 onAttendantDeleteClick = { openAttendantRemove.value = it },
-                onStartServiceClick = { isServiceRunning.value = true },
-                onStopServiceClick = { isServiceRunning.value = false },
+                onStartServiceClick = { isServiceRunning.value = WindowsServiceManager.start() },
+                onStopServiceClick = { isServiceRunning.value = WindowsServiceManager.stop() },
                 onOpenFileDialogClick = { openFileDialog.value = true }
             )
 
@@ -79,17 +77,5 @@ fun App() {
                 )
             }
         }
-    }
-}
-
-private fun isServiceRunning(serviceName: String): Boolean {
-    try {
-        val process = Runtime.getRuntime().exec("sc query $serviceName")
-        val inputStream = process.inputStream.bufferedReader()
-        val output = inputStream.readText()
-        return output.contains("STATE") && output.contains("RUNNING")
-    } catch (e: Exception) {
-        e.printStackTrace()
-        return false
     }
 }
