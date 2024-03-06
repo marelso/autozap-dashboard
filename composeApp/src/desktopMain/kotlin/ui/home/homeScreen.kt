@@ -7,14 +7,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import components.actionServiceControlComponent
 import components.headline0Component
 import components.headline1Component
 import components.subtitleComponent
@@ -24,9 +27,13 @@ import ui.home.items.attendantItemComponent
 @Composable
 fun homeScreen(
     modifier: Modifier = Modifier,
+    isServiceRunning: Boolean,
     attendants: List<Attendant>,
     onAttendantClick: (Attendant) -> Unit,
     onCreateClick: () -> Unit,
+    onStartServiceClick: () -> Unit,
+    onStopServiceClick: () -> Unit,
+    onOpenFileDialogClick: () -> Unit,
     onAttendantDeleteClick: (Attendant) -> Unit
 ) {
     LazyColumn(modifier.padding(32.dp).fillMaxWidth()) {
@@ -43,6 +50,22 @@ fun homeScreen(
                 title = "Here you can manage autozap services"
             )
         }
+
+        item {
+            actionServiceControlComponent(
+                modifier = Modifier.padding(bottom = 16.dp),
+                isServiceRunning = isServiceRunning,
+                onStartClick = { onStartServiceClick() },
+                onStopClick = { onStopServiceClick() }
+            )
+        }
+
+//        item {
+//            Button(onClick = { onOpenFileDialogClick() }) {
+//                Text("Click")
+//            }
+//        }
+
         item {
             Row(modifier = Modifier.padding(bottom = 16.dp, end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 headline1Component(

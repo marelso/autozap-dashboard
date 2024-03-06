@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import components.actionServiceControlComponent
 import data.Attendant
 import data.DesktopDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,23 +21,22 @@ fun App() {
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
     val openFileDialog = mutableStateOf(false)
+    val isServiceRunning = mutableStateOf(false)
 
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
             val attendants = MutableStateFlow(attendantDao.fetch())
 
-            Button(onClick = {
-                openFileDialog.value = true
-            }) {
-                Text("Click")
-            }
-
             homeScreen(
                 attendants = attendants.value.value,
+                isServiceRunning = isServiceRunning.value,
                 onAttendantClick = { openAttendantDetail.value = it },
                 onCreateClick = { openAttendantCreate.value = true },
-                onAttendantDeleteClick = { openAttendantRemove.value = it }
+                onAttendantDeleteClick = { openAttendantRemove.value = it },
+                onStartServiceClick = { isServiceRunning.value = true },
+                onStopServiceClick = { isServiceRunning.value = false },
+                onOpenFileDialogClick = { openFileDialog.value = true }
             )
 
             openAttendantDetail.value?.let {
