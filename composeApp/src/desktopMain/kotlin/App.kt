@@ -1,14 +1,13 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import data.Attendant
 import data.DesktopDatabase
+import data.WindowsServiceManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ui.home.*
@@ -20,23 +19,28 @@ fun App() {
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
     val openFileDialog = mutableStateOf(false)
+    val isServiceRunning = mutableStateOf(WindowsServiceManager.isRunning())
 
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
             val attendants = MutableStateFlow(attendantDao.fetch())
 
-            Button(onClick = {
-                openFileDialog.value = true
-            }) {
-                Text("Click")
-            }
-
             homeScreen(
                 attendants = attendants.value.value,
+                isServiceRunning = isServiceRunning.value,
                 onAttendantClick = { openAttendantDetail.value = it },
                 onCreateClick = { openAttendantCreate.value = true },
-                onAttendantDeleteClick = { openAttendantRemove.value = it }
+                onAttendantDeleteClick = { openAttendantRemove.value = it },
+                onStartServiceClick = {
+                    WindowsServiceManager.start()
+                    isServiceRunning.value = WindowsServiceManager.isRunning()
+                },
+                onStopServiceClick = {
+                    WindowsServiceManager.stop()
+                    isServiceRunning.value = WindowsServiceManager.isRunning()
+                },
+                onOpenFileDialogClick = { openFileDialog.value = true }
             )
 
             openAttendantDetail.value?.let {
