@@ -7,7 +7,7 @@ object WindowsServiceManager {
 
     fun start() {
         try {
-            buildProcess(listOf("net start $service")).start()
+            execute("net start $service")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -15,7 +15,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            buildProcess(listOf("net stop $service")).start()
+            execute("net stop $service")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -23,7 +23,7 @@ object WindowsServiceManager {
 
     fun isRunning(): Boolean {
         try {
-            val process = Runtime.getRuntime().exec("sc query $service")
+            val process = execute("sc query $service")
             val inputStream = process.inputStream.bufferedReader()
             val output = inputStream.readText()
             return output.contains("STATE") && output.contains("RUNNING")
@@ -39,5 +39,9 @@ object WindowsServiceManager {
 
     private fun buildProcess(command: List<String>): ProcessBuilder {
         return ProcessBuilder(command).directory(File(System.getProperty("user.dir")))
+    }
+
+    private fun execute(command: String): Process {
+        return Runtime.getRuntime().exec(command)
     }
 }
