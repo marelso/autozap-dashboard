@@ -55,8 +55,9 @@ fun attendantItemComponent(
                 Text(text = attendant.bio, overflow = TextOverflow.Ellipsis, maxLines = 2)
             }
             IconButton(
+                modifier = Modifier.padding(end = 8.dp),
                 content = { Icon(
-                    modifier = Modifier.size(40.dp).padding(end = 8.dp),
+                    modifier = Modifier.size(36.dp),
                     imageVector = Icons.Default.Delete,
                     tint = hexToColor("#F26549"),
                     contentDescription = "Delete ${attendant.name}"
