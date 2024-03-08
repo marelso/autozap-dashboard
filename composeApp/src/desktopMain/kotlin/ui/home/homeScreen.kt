@@ -31,8 +31,7 @@ fun homeScreen(
     onCreateClick: () -> Unit,
     onStartServiceClick: () -> Unit,
     onStopServiceClick: () -> Unit,
-    onAttendantDeleteClick: (Attendant) -> Unit,
-    onSettingsClick: () -> Unit
+    onAttendantDeleteClick: (Attendant) -> Unit
 ) {
     LazyColumn(modifier.padding(32.dp).fillMaxWidth()) {
         item {
