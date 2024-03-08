@@ -9,8 +9,10 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,15 +71,11 @@ fun homeScreen(
                     modifier = Modifier.weight(1f),
                     title = "Manage current attendants"
                 )
-                Box(
-                    modifier = Modifier.size(50.dp).border(
-                        border = BorderStroke(
-                            width = 2.dp, color = MaterialTheme.colors.primary
-                        ), shape = RoundedCornerShape(10.dp)
-                    ).clickable { onCreateClick() }, contentAlignment = Alignment.Center
-                ) {
+
+                OutlinedButton(
+                    onClick = { onCreateClick() }) {
                     Icon(
-                        modifier = Modifier.size(40.dp),
+                        modifier = Modifier.size(24.dp),
                         imageVector = Icons.Default.Add,
                         tint = MaterialTheme.colors.primary,
                         contentDescription = "Include new attendant"
