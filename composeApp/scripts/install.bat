@@ -1,1 +1,1 @@
-start cmd /k node %userprofile%\desktop\project\autozap\install_service.js
+start cmd /k node ..\autozap\install_service.js
