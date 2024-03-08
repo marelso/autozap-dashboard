@@ -1,11 +1,13 @@
 package data
 
+import java.io.File
+
 object WindowsServiceManager {
     private const val service = "autozap.exe"
 
     fun start() {
         try {
-            Runtime.getRuntime().exec("net start $service").waitFor()
+            buildProcess(listOf("net start $service")).start()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -13,7 +15,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            Runtime.getRuntime().exec("net stop $service").waitFor()
+            buildProcess(listOf("net stop $service")).start()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -21,7 +23,7 @@ object WindowsServiceManager {
 
     fun isRunning(): Boolean {
         try {
-            val process = Runtime.getRuntime().exec("sc query $service")
+            val process = buildProcess(listOf("sc query $service")).start()
             val inputStream = process.inputStream.bufferedReader()
             val output = inputStream.readText()
             return output.contains("STATE") && output.contains("RUNNING")
@@ -32,6 +34,10 @@ object WindowsServiceManager {
     }
 
     fun openAuth() {
-        Runtime.getRuntime().exec(" ./auth.sh " ).waitFor()
+        buildProcess(listOf("./auth.bat")).start()
+    }
+
+    private fun buildProcess(command: List<String>): ProcessBuilder {
+        return ProcessBuilder(command).directory(File(System.getProperty("user.dir")))
     }
 }
