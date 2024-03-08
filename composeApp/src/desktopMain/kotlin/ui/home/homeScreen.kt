@@ -22,6 +22,7 @@ import components.headline1Component
 import components.subtitleComponent
 import data.Attendant
 import data.WindowsServiceManager
+import org.jetbrains.skia.Drawable
 import ui.home.items.attendantItemComponent
 
 @Composable
@@ -33,7 +34,6 @@ fun homeScreen(
     onCreateClick: () -> Unit,
     onStartServiceClick: () -> Unit,
     onStopServiceClick: () -> Unit,
-    onOpenFileDialogClick: () -> Unit,
     onAttendantDeleteClick: (Attendant) -> Unit
 ) {
     LazyColumn(modifier.padding(32.dp).fillMaxWidth()) {
@@ -45,15 +45,16 @@ fun homeScreen(
             )
         }
         item {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.padding(bottom = 32.dp), verticalAlignment = Alignment.CenterVertically) {
                 subtitleComponent(
-                    modifier = Modifier.padding(bottom = 32.dp).weight(1f),
+                    modifier = Modifier.weight(1f),
                     title = "Here you can manage autozap services"
                 )
                 OutlinedButton(onClick = { WindowsServiceManager.openAuth() }) {
-                    Image(
+                    Icon(
+                        modifier = Modifier.size(32.dp),
                         painter = painterResource("drawable/ic_qrcode.svg"),
-                        contentDescription = "QRCODE",
+                        contentDescription = "QRCODE"
                     )
                 }
             }
@@ -67,12 +68,6 @@ fun homeScreen(
                 onStopClick = { onStopServiceClick() }
             )
         }
-
-//        item {
-//            Button(onClick = { onOpenFileDialogClick() }) {
-//                Text("Click")
-//            }
-//        }
 
         item {
             Row(modifier = Modifier.padding(bottom = 16.dp, end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
