@@ -23,7 +23,7 @@ object WindowsServiceManager {
 
     fun isRunning(): Boolean {
         try {
-            val process = buildProcess(listOf("sc query $service")).start()
+            val process = Runtime.getRuntime().exec("sc query $service")
             val inputStream = process.inputStream.bufferedReader()
             val output = inputStream.readText()
             return output.contains("STATE") && output.contains("RUNNING")
