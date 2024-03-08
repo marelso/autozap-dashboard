@@ -64,8 +64,7 @@ fun App() {
                 onStopServiceClick = {
                     WindowsServiceManager.stop()
                     isServiceRunning.value = WindowsServiceManager.isRunning()
-                },
-                onSettingsClick = { openSettingsDialog.value = true }
+                }
             )
 
             openAttendantDetail.value?.let {
