@@ -1,17 +1,25 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import components.actionSettingsDialogComponent
 import data.Attendant
 import data.DesktopDatabase
 import data.WindowsServiceManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import ui.home.*
-import java.io.File
+import ui.home.attendantCreateComponent
+import ui.home.attendantDetailComponent
+import ui.home.attendantRemoveComponent
+import ui.home.homeScreen
 
 @Composable
 @Preview
@@ -19,10 +27,26 @@ fun App() {
     val openAttendantDetail = mutableStateOf<Attendant?>(null)
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
-    val openFileDialog = mutableStateOf(false)
+    val openSettingsDialog = mutableStateOf(false)
     val isServiceRunning = mutableStateOf(WindowsServiceManager.isRunning())
 
-    MaterialTheme {
+    Scaffold(topBar = {
+        TopAppBar(
+            backgroundColor = MaterialTheme.colors.background,
+            title = {},
+            actions = {
+                OutlinedButton(
+                    modifier = Modifier.padding(end = 32.dp),
+                    onClick = { openSettingsDialog.value = true }) {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        imageVector = Icons.Default.Settings,
+                        tint = MaterialTheme.colors.primary,
+                        contentDescription = "Open settings"
+                    )
+                }
+            })
+    }) {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val attendantDao = DesktopDatabase.getInstance().getAttendantDao()
             val attendants = MutableStateFlow(attendantDao.fetch())
@@ -40,7 +64,8 @@ fun App() {
                 onStopServiceClick = {
                     WindowsServiceManager.stop()
                     isServiceRunning.value = WindowsServiceManager.isRunning()
-                }
+                },
+                onSettingsClick = { openSettingsDialog.value = true }
             )
 
             openAttendantDetail.value?.let {
@@ -76,10 +101,12 @@ fun App() {
                 )
             }
 
-            if (openFileDialog.value) {
-                fileDialog(
-                    onSelectDirectory = { openFileDialog.value = false },
-                    onDismiss = { openFileDialog.value = false }
+            if (openSettingsDialog.value) {
+                actionSettingsDialogComponent(
+                    onDismissRequest = { openSettingsDialog.value = false },
+                    onAuthRequest = { WindowsServiceManager.openAuth() },
+                    onInstallServiceRequest = {},
+                    onUninstallServiceRequest = {}
                 )
             }
         }
