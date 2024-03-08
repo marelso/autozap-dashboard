@@ -1,0 +1,1 @@
+start cmd /k node %userprofile%\desktop\project\autozap\uninstall_service.js
