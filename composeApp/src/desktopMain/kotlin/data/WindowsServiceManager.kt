@@ -30,4 +30,8 @@ object WindowsServiceManager {
             return false
         }
     }
+
+    fun openAuth() {
+        Runtime.getRuntime().exec(" ./auth.sh " ).waitFor()
+    }
 }
