@@ -33,8 +33,12 @@ object WindowsServiceManager {
         }
     }
 
-    fun openAuth() {
-        buildProcess(listOf("./auth.bat")).start()
+    fun uninstall() = buildProcess(listOf("./scripts/uninstall.bat")).start()
+
+    fun install() = buildProcess(listOf("./scripts/install.bat")).start()
+
+    fun auth() {
+        buildProcess(listOf("./scripts/auth.bat")).start()
     }
 
     private fun buildProcess(command: List<String>): ProcessBuilder {
