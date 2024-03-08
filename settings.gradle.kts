@@ -19,3 +19,6 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+include(":autozap")
+
+project(":autozap").projectDir = File("../autozap")
