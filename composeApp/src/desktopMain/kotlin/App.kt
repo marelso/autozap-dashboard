@@ -1,14 +1,10 @@
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import data.Attendant
 import data.DesktopDatabase
 import data.WindowsServiceManager
@@ -44,8 +40,7 @@ fun App() {
                 onStopServiceClick = {
                     WindowsServiceManager.stop()
                     isServiceRunning.value = WindowsServiceManager.isRunning()
-                },
-                onOpenFileDialogClick = { openFileDialog.value = true }
+                }
             )
 
             openAttendantDetail.value?.let {
