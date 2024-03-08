@@ -1,27 +1,27 @@
 package ui.home
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import components.actionServiceControlComponent
 import components.headline0Component
 import components.headline1Component
 import components.subtitleComponent
 import data.Attendant
+import data.WindowsServiceManager
 import ui.home.items.attendantItemComponent
 
 @Composable
@@ -45,10 +45,18 @@ fun homeScreen(
             )
         }
         item {
-            subtitleComponent(
-                modifier = Modifier.padding(bottom = 32.dp),
-                title = "Here you can manage autozap services"
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                subtitleComponent(
+                    modifier = Modifier.padding(bottom = 32.dp).weight(1f),
+                    title = "Here you can manage autozap services"
+                )
+                OutlinedButton(onClick = { WindowsServiceManager.openAuth() }) {
+                    Image(
+                        painter = painterResource("drawable/ic_qrcode.svg"),
+                        contentDescription = "QRCODE",
+                    )
+                }
+            }
         }
 
         item {
