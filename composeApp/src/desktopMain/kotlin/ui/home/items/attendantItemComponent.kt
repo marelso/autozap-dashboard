@@ -56,7 +56,7 @@ fun attendantItemComponent(
             }
             IconButton(
                 content = { Icon(
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.size(40.dp).padding(end = 8.dp),
                     imageVector = Icons.Default.Delete,
                     tint = hexToColor("#F26549"),
                     contentDescription = "Delete ${attendant.name}"
