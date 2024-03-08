@@ -100,13 +100,8 @@ fun App() {
                 )
             }
 
-            if (openSettingsDialog.value) {
-                actionSettingsDialogComponent(
-                    onDismissRequest = { openSettingsDialog.value = false },
-                    onAuthRequest = { WindowsServiceManager.auth() },
-                    onInstallServiceRequest = {},
-                    onUninstallServiceRequest = {}
-                )
+            if (openSettingsDialog.value) actionSettingsDialogComponent {
+                openSettingsDialog.value = false
             }
         }
     }
