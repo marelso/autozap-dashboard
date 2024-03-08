@@ -85,16 +85,3 @@ fun App() {
         }
     }
 }
-
-private fun openAuth() {
-    val command = listOf(
-        "gnome-terminal",
-        "--",
-        "sh",
-        "-c",
-        "./auth.sh"
-    )
-    val processBuilder = ProcessBuilder(command).directory(File(System.getProperty("user.dir")))
-
-    processBuilder.start()
-}
