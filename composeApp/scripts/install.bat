@@ -1,0 +1,1 @@
+start cmd /k node autozap\services\install_service.js

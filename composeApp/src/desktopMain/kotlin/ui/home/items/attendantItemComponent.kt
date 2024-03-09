@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import data.Attendant
@@ -54,14 +55,24 @@ fun attendantItemComponent(
                 Text(text = attendant.bio, overflow = TextOverflow.Ellipsis, maxLines = 2)
             }
             IconButton(
+                modifier = Modifier.padding(end = 8.dp),
                 content = { Icon(
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.size(36.dp),
                     imageVector = Icons.Default.Delete,
-                    tint = MaterialTheme.colors.error,
+                    tint = hexToColor("#F26549"),
                     contentDescription = "Delete ${attendant.name}"
                 ) },
                 onClick = { onDelete(attendant) }
             )
         }
     }
+}
+
+fun hexToColor(hex: String): Color {
+    return Color(
+        red = Integer.valueOf(hex.substring(1, 3), 16) / 255f,
+        green = Integer.valueOf(hex.substring(3, 5), 16) / 255f,
+        blue = Integer.valueOf(hex.substring(5, 7), 16) / 255f,
+        alpha = 1.0f
+    )
 }
