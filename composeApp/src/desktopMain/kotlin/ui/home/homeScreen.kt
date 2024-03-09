@@ -6,14 +6,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import components.actionServiceControlComponent
 import components.headline0Component
@@ -25,6 +25,7 @@ import ui.home.items.attendantItemComponent
 @Composable
 fun homeScreen(
     modifier: Modifier = Modifier,
+    message: MutableState<TextFieldValue>,
     isServiceRunning: Boolean,
     attendants: List<Attendant>,
     onAttendantClick: (Attendant) -> Unit,
@@ -57,6 +58,19 @@ fun homeScreen(
                 isServiceRunning = isServiceRunning,
                 onStartClick = { onStartServiceClick() },
                 onStopClick = { onStopServiceClick() }
+            )
+        }
+
+        item {
+            headline1Component(modifier = Modifier.padding(bottom = 16.dp), title = "Reply rules")
+        }
+
+        item {
+            OutlinedTextField(
+                value = message.value,
+                onValueChange = { message.value = it },
+                label = { Text("Insert your message here.") },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
             )
         }
 
