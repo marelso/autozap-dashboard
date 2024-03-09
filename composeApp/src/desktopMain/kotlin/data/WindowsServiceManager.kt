@@ -5,7 +5,7 @@ object WindowsServiceManager {
 
     fun start() {
         try {
-            execute("net start $service")
+            execute("net start $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -13,7 +13,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            execute("net stop $service")
+            execute("net stop $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -35,9 +35,7 @@ object WindowsServiceManager {
 
     fun install() = buildProcess(listOf("./scripts/install.bat")).start()
 
-    fun auth() {
-        buildProcess(listOf("./scripts/auth.bat")).start()
-    }
+    fun auth() = buildProcess(listOf("./scripts/auth.bat")).start()
 
     private fun buildProcess(command: List<String>): ProcessBuilder {
         return ProcessBuilder(command)
