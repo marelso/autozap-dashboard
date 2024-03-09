@@ -7,8 +7,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import components.actionSettingsDialogComponent
 import data.Attendant
@@ -29,6 +31,7 @@ fun App() {
     val openAttendantCreate = mutableStateOf(false)
     val openSettingsDialog = mutableStateOf(false)
     val isServiceRunning = mutableStateOf(WindowsServiceManager.isRunning())
+    val message = remember { mutableStateOf(TextFieldValue("")) }
 
     Scaffold(topBar = {
         TopAppBar(
@@ -52,6 +55,7 @@ fun App() {
             val attendants = MutableStateFlow(attendantDao.fetch())
 
             homeScreen(
+                message = message,
                 attendants = attendants.value.value,
                 isServiceRunning = isServiceRunning.value,
                 onAttendantClick = { openAttendantDetail.value = it },
