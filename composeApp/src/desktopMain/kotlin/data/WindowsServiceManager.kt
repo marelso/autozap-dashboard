@@ -1,7 +1,5 @@
 package data
 
-import java.io.File
-
 object WindowsServiceManager {
     private const val service = "autozap.exe"
 
@@ -42,7 +40,7 @@ object WindowsServiceManager {
     }
 
     private fun buildProcess(command: List<String>): ProcessBuilder {
-        return ProcessBuilder(command).directory(File(System.getProperty("user.dir")))
+        return ProcessBuilder(command)
     }
 
     private fun execute(command: String): Process {
