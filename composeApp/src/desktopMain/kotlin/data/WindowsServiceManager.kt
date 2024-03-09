@@ -31,12 +31,12 @@ object WindowsServiceManager {
         }
     }
 
-    fun uninstall() = buildProcess(listOf("/scripts/uninstall.bat")).start()
+    fun uninstall() = buildProcess(listOf("./scripts/uninstall.bat")).start()
 
-    fun install() = buildProcess(listOf("/scripts/install.bat")).start()
+    fun install() = buildProcess(listOf("./scripts/install.bat")).start()
 
     fun auth() {
-        buildProcess(listOf("/scripts/auth.bat")).start()
+        buildProcess(listOf("./scripts/auth.bat")).start()
     }
 
     private fun buildProcess(command: List<String>): ProcessBuilder {
