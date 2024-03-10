@@ -1,19 +1,17 @@
 package ui.home
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import components.actionServiceControlComponent
 import components.headline0Component
@@ -25,10 +23,10 @@ import ui.home.items.attendantItemComponent
 @Composable
 fun homeScreen(
     modifier: Modifier = Modifier,
-    message: MutableState<TextFieldValue>,
     isServiceRunning: Boolean,
     attendants: List<Attendant>,
     onAttendantClick: (Attendant) -> Unit,
+    onReplyClick: () -> Unit,
     onCreateClick: () -> Unit,
     onStartServiceClick: () -> Unit,
     onStopServiceClick: () -> Unit,
@@ -42,8 +40,9 @@ fun homeScreen(
                 hasUnderlineHighlight = true
             )
         }
+
         item {
-            Row(modifier = Modifier.padding(bottom = 32.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.padding(bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 subtitleComponent(
                     modifier = Modifier.weight(1f),
                     title = "Here you can manage autozap services"
@@ -53,24 +52,25 @@ fun homeScreen(
         }
 
         item {
+            TextButton(
+                modifier = Modifier.width(250.dp).height(70.dp).padding(bottom = 16.dp),
+                onClick = { onReplyClick() },
+                content = { Text(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    text = "Reply rules",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold
+                    )
+                )}
+            )
+        }
+
+        item {
             actionServiceControlComponent(
                 modifier = Modifier.padding(bottom = 16.dp),
                 isServiceRunning = isServiceRunning,
                 onStartClick = { onStartServiceClick() },
                 onStopClick = { onStopServiceClick() }
-            )
-        }
-
-        item {
-            headline1Component(modifier = Modifier.padding(bottom = 16.dp), title = "Reply rules")
-        }
-
-        item {
-            OutlinedTextField(
-                value = message.value,
-                onValueChange = { message.value = it },
-                label = { Text("Insert your message here.") },
-                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
             )
         }
 
@@ -120,4 +120,11 @@ private fun LazyListScope.attendantsList(
             onDelete = { onDelete(it) }
         )
     }
+)
+
+fun hexToColor(hex: String) = Color(
+    red = Integer.valueOf(hex.substring(1, 3), 16) / 255f,
+    green = Integer.valueOf(hex.substring(3, 5), 16) / 255f,
+    blue = Integer.valueOf(hex.substring(5, 7), 16) / 255f,
+    alpha = 1.0f
 )
