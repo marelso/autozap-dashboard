@@ -20,7 +20,7 @@ fun OutlinedButtonComponent(
     checked: Boolean,
     onClick: () -> Unit
 ) {
-    val color = if (!checked) hexToColor("#F26549") else MaterialTheme.colors.primary
+    val color = if (checked) hexToColor("#F26549") else MaterialTheme.colors.primary
     Box(
         modifier = modifier
             .height(48.dp)
