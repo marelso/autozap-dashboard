@@ -7,7 +7,7 @@ import java.sql.Connection
 class MessageDaoImpl(private val connection: Connection) : MessageDao {
     override fun fetch(): MutableState<List<Message>> {
         val messages = mutableListOf<Message>()
-        val query = "SELECT * FROM message ORDER BY id DESC"
+        val query = "SELECT * FROM message ORDER BY active DESC, id DESC"
         connection.createStatement().use { statement ->
             statement.executeQuery(query).use { resultSet ->
                 while (resultSet.next()) {
@@ -23,7 +23,7 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
     }
 
     override fun insert(message: Message) {
-        val query = "INSERT INTO message (message) VALUES ('${message.message}', true)"
+        val query = "INSERT INTO message (message, active) VALUES ('${message.message}', false)"
         connection.prepareStatement(query).executeUpdate()
     }
 
