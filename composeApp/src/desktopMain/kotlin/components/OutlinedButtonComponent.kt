@@ -8,7 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ui.home.hexToColor
 
 @Composable
 fun OutlinedButtonComponent(
@@ -17,16 +20,17 @@ fun OutlinedButtonComponent(
     checked: Boolean,
     onClick: () -> Unit
 ) {
+    val color = if (!checked) hexToColor("#F26549") else MaterialTheme.colors.primary
     Box(
         modifier = modifier
             .height(48.dp)
     ) {
         Box(
             modifier = Modifier
-                .width(4.dp)
+                .width(8.dp)
                 .fillMaxHeight()
                 .align(Alignment.CenterStart)
-                .background(MaterialTheme.colors.primary)
+                .background(color)
         )
 
         TextButton(
@@ -36,12 +40,17 @@ fun OutlinedButtonComponent(
                 .align(Alignment.CenterStart),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Transparent,
-                contentColor = MaterialTheme.colors.primary
+                contentColor = color
             ),
             shape = RoundedCornerShape(10)
         ) {
             Text(
-                modifier = Modifier.weight(1f).padding(start = 16.dp), text = text)
+                modifier = Modifier.weight(1f).padding(start = 16.dp),
+                text = text,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold
+                )
+            )
             Switch(
                 checked = checked,
                 onCheckedChange = { onClick() },
