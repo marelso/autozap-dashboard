@@ -36,4 +36,9 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
         val query = "DELETE FROM message WHERE id = $id"
         connection.prepareStatement(query).executeUpdate()
     }
+
+    override fun setActive(id: Int) {
+        val query = "UPDATE message SET active = CASE WHEN id = $id THEN true ELSE false END;"
+        connection.prepareStatement(query).executeUpdate()
+    }
 }

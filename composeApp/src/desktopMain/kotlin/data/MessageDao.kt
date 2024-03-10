@@ -17,4 +17,7 @@ interface MessageDao {
 
     @Query("DELETE FROM message WHERE id = :id")
     fun deleteById(id: Int)
+
+    @Query("UPDATE message SET active = CASE WHEN id = :id THEN true ELSE false END;")
+    fun setActive(id: Int)
 }
