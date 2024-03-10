@@ -75,7 +75,12 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                         TextButton(
                             enabled = isApplyEnabled,
                             content = { Text("Apply") },
-                            onClick = { onDismissRequest() }
+                            onClick = {
+                                selectedOption.value?.let {
+                                    messageDao.setActive(it.id)
+                                    onDismissRequest()
+                                }
+                            }
                         )
                     }
                 }
