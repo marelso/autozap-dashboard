@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import data.Attendant
+import ui.home.hexToColor
 
 @Composable
 fun attendantItemComponent(
@@ -66,13 +66,4 @@ fun attendantItemComponent(
             )
         }
     }
-}
-
-fun hexToColor(hex: String): Color {
-    return Color(
-        red = Integer.valueOf(hex.substring(1, 3), 16) / 255f,
-        green = Integer.valueOf(hex.substring(3, 5), 16) / 255f,
-        blue = Integer.valueOf(hex.substring(5, 7), 16) / 255f,
-        alpha = 1.0f
-    )
 }
