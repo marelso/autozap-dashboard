@@ -3,6 +3,7 @@ package ui.home
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
@@ -12,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import data.Attendant
 
 @Composable
@@ -24,17 +26,17 @@ fun attendantRemoveComponent(
 
     AlertDialog(
         title = {
-            Text(text = "Deleting attendant: ${attendant.name} ")
+            Text(text = "Removendo atendente: ${attendant.name} ")
         },
         text = {
             Column {
-                Text(text = "Once you delete an attendant, there is no going back. Please be certain.")
-                Row(modifier = Modifier.clickable { checked.value = !checked.value }, verticalAlignment = Alignment.CenterVertically) {
+                Text(text = "Depois de excluir um atendente, não há como reverter. Por favor, tenha certeza.")
+                Row(modifier = Modifier.padding(top = 12.dp).clickable { checked.value = !checked.value }, verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
                         checked = checked.value,
                         onCheckedChange = { isChecked -> checked.value = isChecked }
                     )
-                    Text("I have read and understand these effects.")
+                    Text(text = "Eu li e compreendi as consequências.", modifier = Modifier.padding(end =20.dp))
                 }
             }
         },
@@ -43,12 +45,12 @@ fun attendantRemoveComponent(
         },
         confirmButton = {
             TextButton(onClick = { onConfirmation(attendant.id) }, enabled = checked.value) {
-                Text("Confirm")
+                Text("Confirmar")
             }
         },
         dismissButton = {
             TextButton(onClick = { onDismissRequest() }) {
-                Text("Dismiss")
+                Text("Cancerlar")
             }
         }
     )
