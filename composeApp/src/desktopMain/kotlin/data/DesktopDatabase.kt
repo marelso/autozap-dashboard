@@ -29,6 +29,7 @@ class DesktopDatabase private constructor() {
     private fun createTables() {
         val statement = connection?.createStatement()
         statement?.executeUpdate("CREATE TABLE IF NOT EXISTS attendant (id INTEGER PRIMARY KEY, name TEXT, bio TEXT, link TEXT)")
+        statement?.executeUpdate("CREATE TABLE IF NOT EXISTS message (id INTEGER PRIMARY KEY, message TEXT, active BOOLEAN)")
     }
 
     fun getConnection(): Connection? {
@@ -38,5 +39,10 @@ class DesktopDatabase private constructor() {
     fun getAttendantDao(): AttendantDao {
         val connection = getConnection() ?: throw IllegalStateException("Database connection is not initialized.")
         return AttendantDaoImpl(connection)
+    }
+
+    fun getMessageDao(): MessageDao {
+        val connection = getConnection() ?: throw IllegalStateException("Database connection is not initialized.")
+        return MessageDaoImpl(connection)
     }
 }
