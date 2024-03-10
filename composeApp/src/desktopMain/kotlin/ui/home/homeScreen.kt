@@ -36,7 +36,7 @@ fun homeScreen(
         item {
             headline0Component(
                 modifier = Modifier.padding(bottom = 8.dp),
-                title = "Autozap dashboard",
+                title = "AutoZap dashboard",
                 hasUnderlineHighlight = true
             )
         }
@@ -45,7 +45,7 @@ fun homeScreen(
             Row(modifier = Modifier.padding(bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 subtitleComponent(
                     modifier = Modifier.weight(1f),
-                    title = "Here you can manage autozap services"
+                    title = "Você pode gerenciar os serviços do AutoZap por aqui."
                 )
 
             }
@@ -57,7 +57,7 @@ fun homeScreen(
                 onClick = { onReplyClick() },
                 content = { Text(
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                    text = "Reply rules",
+                    text = "Regras para resposta",
                     style = TextStyle(
                         fontWeight = FontWeight.Bold
                     )
@@ -81,7 +81,7 @@ fun homeScreen(
             ) {
                 headline1Component(
                     modifier = Modifier.weight(1f),
-                    title = "Manage current attendants"
+                    title = "Gerencie seus atendentes"
                 )
 
                 OutlinedButton(
@@ -90,7 +90,7 @@ fun homeScreen(
                         modifier = Modifier.size(24.dp),
                         imageVector = Icons.Default.Add,
                         tint = MaterialTheme.colors.primary,
-                        contentDescription = "Include new attendant"
+                        contentDescription = "Adicione um novo atendente"
                     )
                 }
             }

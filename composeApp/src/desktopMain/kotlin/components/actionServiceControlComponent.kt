@@ -10,7 +10,7 @@ fun actionServiceControlComponent(
     onStartClick: () -> Unit,
     onStopClick: () -> Unit
 ) {
-    val buttonText = if (isServiceRunning) "Stop" else "Start"
+    val buttonText = if (isServiceRunning) "Parar serviço" else "Iniciar serviço"
     val onClickAction = if (isServiceRunning) onStopClick else onStartClick
 
     OutlinedButtonComponent(modifier = modifier, text = buttonText, onClick = onClickAction, checked = isServiceRunning)

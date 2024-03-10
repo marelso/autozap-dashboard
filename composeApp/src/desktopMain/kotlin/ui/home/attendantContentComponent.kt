@@ -21,7 +21,7 @@ fun attendantContentComponent(
     Column(modifier.padding(8.dp)) {
         OutlinedTextField(value = name.value, onValueChange = {
             name.value = it
-        }, label = { Text("Name") }, modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+        }, label = { Text("Nome") }, modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
         OutlinedTextField(value = bio.value,
             onValueChange = { bio.value = it },
@@ -30,7 +30,7 @@ fun attendantContentComponent(
         )
         OutlinedTextField(value = link.value,
             onValueChange = { link.value = it },
-            label = { Text("Link") },
+            label = { Text("Contato") },
             modifier = Modifier.fillMaxWidth()
         )
     }

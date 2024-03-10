@@ -23,7 +23,7 @@ fun attendantCreateComponent(
     }
 
     actionDialogComponent(
-        title = "Creating new attendant",
+        title = "Cadastrar novo atendente",
         content = { attendantContentComponent(name = name, bio = bio, link = link) },
         isConfirmationEnabled = isConfirmationEnabled.value,
         onConfirmation = {
