@@ -1,8 +1,5 @@
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -33,7 +30,9 @@ fun App() {
     val openSettingsDialog = mutableStateOf(false)
     val openReplyRules = mutableStateOf(false)
 
-    Scaffold(topBar = {
+    Scaffold(
+        modifier = Modifier.sizeIn(minWidth = 100.dp, minHeight = 100.dp),
+        topBar = {
         TopAppBar(
             backgroundColor = MaterialTheme.colors.background,
             title = {},
