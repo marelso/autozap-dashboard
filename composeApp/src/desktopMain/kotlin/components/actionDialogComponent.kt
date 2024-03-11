@@ -23,8 +23,8 @@ fun actionDialogComponent(
             content = { content() },
             bottomBar = {
                 actionBottomBarComponent(
-                    trailingText = "Confirm",
-                    leadingText = "Cancel",
+                    trailingText = "Cadastrar",
+                    leadingText = "Cancelar",
                     trailingTextEnabled = isConfirmationEnabled,
                     onConfirmation = onConfirmation,
                     onDismissRequest = onDismissRequest

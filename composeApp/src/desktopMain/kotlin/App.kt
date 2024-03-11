@@ -45,7 +45,7 @@ fun App() {
                         modifier = Modifier.size(24.dp),
                         imageVector = Icons.Default.Settings,
                         tint = MaterialTheme.colors.primary,
-                        contentDescription = "Open settings"
+                        contentDescription = "Abrir configurações"
                     )
                 }
             })

@@ -29,11 +29,24 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
             modifier = Modifier.background(color = MaterialTheme.colors.background).fillMaxSize().padding(32.dp),
             content = {
                 Column {
+                    captionTextComponent(
+                        text = "Você pode usar as variáveis",
+                        maxLines = 1,
+                        fontWeight = 700,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+
+                    captionTextComponent(
+                        text = "\$nome, \$bio, \$contato",
+                        maxLines = 1,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+
                     OutlinedTextField(
                         value = message.value,
                         onValueChange = { message.value = it },
                         maxLines = 3,
-                        label = { Text("Message") },
+                        label = { Text("Mensagem") },
                         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
                     )
 
@@ -49,9 +62,7 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                                 messageDao.insert(message)
                                 messagesState.value = messageDao.fetch().value
                             },
-                            content = {
-                                Text("Save")
-                            })
+                            content = { Text("Cadastrar") })
                     }
 
                     messageListComponent(
@@ -69,12 +80,12 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                 Box(modifier = Modifier.fillMaxWidth().background(color = MaterialTheme.colors.background)) {
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                         TextButton(
-                            content = { Text("Dismiss") },
+                            content = { Text("Cancelar") },
                             onClick = { onDismissRequest() }
                         )
                         TextButton(
                             enabled = isApplyEnabled,
-                            content = { Text("Apply") },
+                            content = { Text("Aplicar") },
                             onClick = {
                                 selectedOption.value?.let {
                                     messageDao.setActive(it.id)
