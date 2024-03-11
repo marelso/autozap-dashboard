@@ -15,6 +15,6 @@ interface AttendantDao {
     @Update
     fun update(attendant: Attendant)
 
-    @Query("DELETE FROM attendant where attendantId = :id")
+    @Query("DELETE FROM attendant where id = :id")
     fun deleteById(id: Int)
 }

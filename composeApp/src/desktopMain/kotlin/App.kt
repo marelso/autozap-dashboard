@@ -1,3 +1,4 @@
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import components.actionReplyRulesDialogComponent
 import components.actionSettingsDialogComponent
 import data.Attendant
 import data.DesktopDatabase
@@ -24,11 +26,12 @@ import ui.home.homeScreen
 @Composable
 @Preview
 fun App() {
+    val isServiceRunning = mutableStateOf(WindowsServiceManager.isRunning())
     val openAttendantDetail = mutableStateOf<Attendant?>(null)
     val openAttendantRemove = mutableStateOf<Attendant?>(null)
     val openAttendantCreate = mutableStateOf(false)
     val openSettingsDialog = mutableStateOf(false)
-    val isServiceRunning = mutableStateOf(WindowsServiceManager.isRunning())
+    val openReplyRules = mutableStateOf(false)
 
     Scaffold(topBar = {
         TopAppBar(
@@ -64,7 +67,8 @@ fun App() {
                 onStopServiceClick = {
                     WindowsServiceManager.stop()
                     isServiceRunning.value = WindowsServiceManager.isRunning()
-                }
+                },
+                onReplyClick = { openReplyRules.value = true }
             )
 
             openAttendantDetail.value?.let {
@@ -102,6 +106,10 @@ fun App() {
 
             if (openSettingsDialog.value) actionSettingsDialogComponent {
                 openSettingsDialog.value = false
+            }
+
+            if(openReplyRules.value) actionReplyRulesDialogComponent {
+                openReplyRules.value = false
             }
         }
     }

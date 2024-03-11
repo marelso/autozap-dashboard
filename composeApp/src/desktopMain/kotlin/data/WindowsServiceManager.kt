@@ -1,13 +1,11 @@
 package data
 
-import java.io.File
-
 object WindowsServiceManager {
     private const val service = "autozap.exe"
 
     fun start() {
         try {
-            execute("net start $service")
+            execute("net start $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -15,7 +13,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            execute("net stop $service")
+            execute("net stop $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -37,12 +35,10 @@ object WindowsServiceManager {
 
     fun install() = buildProcess(listOf("./scripts/install.bat")).start()
 
-    fun auth() {
-        buildProcess(listOf("./scripts/auth.bat")).start()
-    }
+    fun auth() = buildProcess(listOf("./scripts/auth.bat")).start()
 
     private fun buildProcess(command: List<String>): ProcessBuilder {
-        return ProcessBuilder(command).directory(File(System.getProperty("user.dir")))
+        return ProcessBuilder(command)
     }
 
     private fun execute(command: String): Process {

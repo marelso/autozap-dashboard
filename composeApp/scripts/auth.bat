@@ -1,1 +1,1 @@
-start cmd /k node %userprofile%\desktop\project\autozap\auth.js
+start cmd /k node autozap\services\auth.js
