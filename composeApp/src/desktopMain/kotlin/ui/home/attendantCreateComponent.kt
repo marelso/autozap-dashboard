@@ -30,9 +30,9 @@ fun attendantCreateComponent(
             onConfirmation(
                 Attendant(
                     id = 0,
-                    name = name.value.text,
-                    bio = bio.value.text,
-                    link = link.value.text
+                    name = name.value.text.trim(),
+                    bio = bio.value.text.trim(),
+                    link = link.value.text.trim()
                 )
             )
         },

@@ -54,12 +54,11 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                         Button(
                             enabled = isSaveEnabled,
                             onClick = {
-                                val message = Message(
+                                messageDao.insert(Message(
                                     id = 0,
-                                    message = message.value.text,
+                                    message = message.value.text.trim(),
                                     active = true
-                                )
-                                messageDao.insert(message)
+                                ))
                                 messagesState.value = messageDao.fetch().value
                             },
                             content = { Text("Cadastrar") })
