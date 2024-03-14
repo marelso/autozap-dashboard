@@ -17,7 +17,7 @@ import data.Message
 import ui.home.messageListComponent
 
 @Composable
-fun messagePageComponent(onDismissRequest: () -> Unit) {
+fun firstReplyPageComponent(onDismissRequest: () -> Unit) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val messageDao = DesktopDatabase.getInstance().getMessageDao()
     val messagesState by mutableStateOf(messageDao.fetch())
