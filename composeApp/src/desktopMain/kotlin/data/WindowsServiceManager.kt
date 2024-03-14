@@ -5,7 +5,7 @@ object WindowsServiceManager {
 
     fun start() {
         try {
-            execute("net start $service").waitFor()
+            Runtime.getRuntime().exec("net start $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -13,7 +13,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            execute("net stop $service").waitFor()
+            Runtime.getRuntime().exec("net stop $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -21,7 +21,7 @@ object WindowsServiceManager {
 
     fun isRunning(): Boolean {
         try {
-            val process = execute("sc query $service")
+            val process = Runtime.getRuntime().exec("sc query $service")
             val inputStream = process.inputStream.bufferedReader()
             val output = inputStream.readText()
             return output.contains("STATE") && output.contains("RUNNING")
