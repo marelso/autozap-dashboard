@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import components.actionBottomBarComponent
 import components.actionSnackbarComponent
 import components.captionTextComponent
 import data.DesktopDatabase
@@ -31,7 +32,7 @@ fun firstReplyPageComponent(onDismissRequest: () -> Unit) {
     }
     var isSnackbarVisible by remember { mutableStateOf(false) }
     Scaffold(
-        modifier = Modifier.background(color = MaterialTheme.colors.background).fillMaxSize().padding(32.dp),
+        modifier = Modifier.background(color = MaterialTheme.colors.background).fillMaxSize().padding(horizontal = 16.dp).padding(top = 8.dp),
         content = {
             Column {
                 captionTextComponent(
@@ -97,24 +98,20 @@ fun firstReplyPageComponent(onDismissRequest: () -> Unit) {
             )
         },
         bottomBar = {
-            Box(modifier = Modifier.fillMaxWidth().background(color = MaterialTheme.colors.background)) {
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(
-                        content = { Text("Cancelar") },
-                        onClick = { onDismissRequest() }
-                    )
-                    TextButton(
-                        enabled = isApplyEnabled,
-                        content = { Text("Aplicar") },
-                        onClick = {
-                            selectedOption.value?.let {
-                                messageDao.setActive(it.id)
-                                onDismissRequest()
-                            }
-                        }
-                    )
+            actionBottomBarComponent(
+                leadingText = "Cancelar",
+                trailingText = "Aplicar",
+                leadingTextEnabled = true,
+                trailingTextEnabled = isApplyEnabled,
+                arrangement = Arrangement.End,
+                onDismissRequest = { onDismissRequest() },
+                onConfirmation = {
+                    selectedOption.value?.let {
+                        messageDao.setActive(it.id)
+                        onDismissRequest()
+                    }
                 }
-            }
+            )
         }
     )
 }

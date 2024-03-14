@@ -17,7 +17,7 @@ fun actionBottomBarComponent(
     trailingText: String? = null,
     leadingTextEnabled: Boolean = true,
     trailingTextEnabled: Boolean = false,
-    arrangement:  Arrangement.HorizontalOrVertical = Arrangement.Center,
+    arrangement:  Arrangement.Horizontal = Arrangement.Center,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit
 ) {
