@@ -18,7 +18,7 @@ fun attendantCreateComponent(
     val link = remember { mutableStateOf(TextFieldValue()) }
     val isConfirmationEnabled = remember {
         derivedStateOf {
-            (name.value.text.isNotBlank()) && (bio.value.text.isNotBlank()) && (link.value.text.isNotBlank())
+            (name.value.text.isNotBlank()) && (link.value.text.isNotBlank())
         }
     }
 

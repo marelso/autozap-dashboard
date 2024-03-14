@@ -52,7 +52,11 @@ fun attendantItemComponent(
                     .padding(horizontal = 8.dp)
             ) {
                 Text(text = attendant.name)
-                Text(text = attendant.bio, overflow = TextOverflow.Ellipsis, maxLines = 2)
+                attendant.bio?.let {
+                    if(it.isNotBlank()) {
+                        Text(text = it, overflow = TextOverflow.Ellipsis, maxLines = 2)
+                    }
+                }
             }
             IconButton(
                 modifier = Modifier.padding(end = 8.dp),

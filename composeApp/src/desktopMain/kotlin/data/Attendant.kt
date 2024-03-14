@@ -16,7 +16,7 @@ class Attendant(
     var name: String,
 
     @ColumnInfo(name = "bio")
-    val bio: String,
+    val bio: String?,
 
     @ColumnInfo(name = "link")
     val link: String

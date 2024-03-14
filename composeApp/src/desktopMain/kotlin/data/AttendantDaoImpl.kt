@@ -11,12 +11,14 @@ class AttendantDaoImpl(private val connection: Connection) : AttendantDao {
         connection.createStatement().use { statement ->
             statement.executeQuery(query).use { resultSet ->
                 while (resultSet.next()) {
-                    attendants.add(Attendant(
-                        id = resultSet.getInt("id"),
-                        name = resultSet.getString("name"),
-                        bio = resultSet.getString("bio"),
-                        link = resultSet.getString("link")
-                    ))
+                    attendants.add(
+                        Attendant(
+                            id = resultSet.getInt("id"),
+                            name = resultSet.getString("name"),
+                            bio = resultSet.getString("bio"),
+                            link = resultSet.getString("link")
+                        )
+                    )
                 }
             }
         }
@@ -24,13 +26,20 @@ class AttendantDaoImpl(private val connection: Connection) : AttendantDao {
     }
 
     override fun insert(attendant: Attendant) {
-        val query = "INSERT INTO attendant (name, bio, link) VALUES ('${attendant.name}', '${attendant.bio}', '${attendant.link}')"
-        connection.prepareStatement(query).executeUpdate()
+        connection.prepareStatement("INSERT INTO attendant (name, bio, link) VALUES (?, ?, ?)").apply {
+            setString(1, attendant.name)
+            setString(2, attendant.bio)
+            setString(3, attendant.link)
+        }.executeUpdate()
     }
 
     override fun update(attendant: Attendant) {
-        val query = "UPDATE attendant set name = '${attendant.name}', bio = '${attendant.bio}', link = '${attendant.link}' WHERE id = ${attendant.id}"
-        connection.prepareStatement(query).executeUpdate()
+        connection.prepareStatement("UPDATE attendant set name = ?, bio = ?, link = ? WHERE id = ?").apply {
+            setString(1, attendant.name)
+            setString(2, attendant.bio)
+            setString(3, attendant.link)
+            setInt(4, attendant.id)
+        }.executeUpdate()
     }
 
     override fun deleteById(id: Int) {

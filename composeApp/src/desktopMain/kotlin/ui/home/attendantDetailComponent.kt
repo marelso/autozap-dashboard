@@ -15,12 +15,12 @@ fun attendantDetailComponent(
     onDismissRequest: () -> Unit
 ) {
     val name = remember { mutableStateOf(TextFieldValue(attendant.name)) }
-    val bio = remember { mutableStateOf(TextFieldValue(attendant.bio)) }
+    val bio = remember { mutableStateOf(TextFieldValue(attendant.bio.orEmpty())) }
     val link = remember { mutableStateOf(TextFieldValue(attendant.link)) }
     val isConfirmationEnabled = remember {
         derivedStateOf {
             (name.value.text != attendant.name || bio.value.text != attendant.bio || link.value.text != attendant.link).and(
-                name.value.text.isNotBlank() && bio.value.text.isNotBlank() && link.value.text.isNotBlank()
+                name.value.text.isNotBlank() && link.value.text.isNotBlank()
             )
         }
     }
