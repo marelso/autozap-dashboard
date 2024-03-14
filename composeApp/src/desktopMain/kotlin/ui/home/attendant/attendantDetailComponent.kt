@@ -1,4 +1,4 @@
-package ui.home
+package ui.home.attendant
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -9,27 +9,30 @@ import components.actionDialogComponent
 import data.attendant.Attendant
 
 @Composable
-fun attendantCreateComponent(
+fun attendantDetailComponent(
+    attendant: Attendant,
     onConfirmation: (Attendant) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    val name = remember { mutableStateOf(TextFieldValue()) }
-    val bio = remember { mutableStateOf(TextFieldValue()) }
-    val link = remember { mutableStateOf(TextFieldValue()) }
+    val name = remember { mutableStateOf(TextFieldValue(attendant.name)) }
+    val bio = remember { mutableStateOf(TextFieldValue(attendant.bio.orEmpty())) }
+    val link = remember { mutableStateOf(TextFieldValue(attendant.link)) }
     val isConfirmationEnabled = remember {
         derivedStateOf {
-            (name.value.text.isNotBlank()) && (link.value.text.isNotBlank())
+            (name.value.text != attendant.name || bio.value.text != attendant.bio || link.value.text != attendant.link).and(
+                name.value.text.isNotBlank() && link.value.text.isNotBlank()
+            )
         }
     }
 
     actionDialogComponent(
-        title = "Cadastrar novo atendente",
+        title = attendant.name,
         content = { attendantContentComponent(name = name, bio = bio, link = link) },
         isConfirmationEnabled = isConfirmationEnabled.value,
         onConfirmation = {
             onConfirmation(
                 Attendant(
-                    id = 0,
+                    id = attendant.id,
                     name = name.value.text.trim(),
                     bio = bio.value.text.trim(),
                     link = link.value.text.trim()

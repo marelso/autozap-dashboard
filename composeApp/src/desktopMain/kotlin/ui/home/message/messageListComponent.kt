@@ -1,4 +1,4 @@
-package ui.home
+package ui.home.message
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,49 +15,50 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import data.reply.Reply
+import data.message.Message
+import ui.home.hexToColor
 
 @Composable
-fun replyListComponent(
-    replies: List<Reply>,
-    current: Reply?,
+fun messageListComponent(
+    messages: List<Message>,
+    current: Message?,
     padding: PaddingValues,
-    onSelection: (Reply) -> Unit,
+    onSelection: (Message) -> Unit,
     onDelete: (Int) -> Unit
 ) {
     LazyColumn(contentPadding = padding) {
-        replyList(
+        messageList(
             current = current,
-            replies = replies,
+            messages = messages,
             onSelection = { onSelection(it) },
             onDelete = { onDelete(it) })
     }
 }
 
-private fun LazyListScope.replyList(
-    current: Reply?,
-    replies: List<Reply>,
-    onSelection: (Reply) -> Unit,
+private fun LazyListScope.messageList(
+    current: Message?,
+    messages: List<Message>,
+    onSelection: (Message) -> Unit,
     onDelete: (Int) -> Unit
 ) = items(
-    count = replies.size,
+    count = messages.size,
     itemContent = { index ->
-        val reply = replies[index]
+        val message = messages[index]
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onSelection(reply) }
+                .clickable { onSelection(message) }
                 .padding(vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             RadioButton(
                 modifier = Modifier.align(Alignment.Top),
-                selected = reply == current,
-                onClick = { onSelection(reply) }
+                selected = message == current,
+                onClick = { onSelection(message) }
             )
             Text(
                 modifier = Modifier.weight(1f),
-                text = reply.reply,
+                text = message.message,
                 overflow = TextOverflow.Ellipsis
             )
             IconButton(
@@ -70,7 +71,7 @@ private fun LazyListScope.replyList(
                         contentDescription = "Delete message"
                     )
                 },
-                onClick = { onDelete(reply.id) }
+                onClick = { onDelete(message.id) }
             )
         }
     }

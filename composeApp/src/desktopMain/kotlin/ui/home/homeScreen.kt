@@ -18,7 +18,7 @@ import components.headline0Component
 import components.headline1Component
 import components.subtitleComponent
 import data.attendant.Attendant
-import ui.home.items.attendantItemComponent
+import ui.home.attendant.items.attendantItemComponent
 
 @Composable
 fun homeScreen(

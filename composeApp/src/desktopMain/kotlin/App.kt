@@ -15,9 +15,9 @@ import data.DesktopDatabase
 import data.WindowsServiceManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import ui.home.attendantCreateComponent
-import ui.home.attendantDetailComponent
-import ui.home.attendantRemoveComponent
+import ui.home.attendant.attendantCreateComponent
+import ui.home.attendant.attendantDetailComponent
+import ui.home.attendant.attendantRemoveComponent
 import ui.home.homeScreen
 
 @Composable

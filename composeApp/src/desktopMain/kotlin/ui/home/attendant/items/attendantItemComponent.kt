@@ -1,4 +1,4 @@
-package ui.home.items
+package ui.home.attendant.items
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

@@ -14,10 +14,7 @@ import components.actionBottomBarComponent
 import components.actionSnackbarComponent
 import components.captionTextComponent
 import data.DesktopDatabase
-import data.message.Message
 import data.reply.Reply
-import ui.home.messageListComponent
-import ui.home.replyListComponent
 
 @Composable
 fun otherRepliesPageComponent(onDismissRequest: () -> Unit) {

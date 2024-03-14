@@ -15,7 +15,6 @@ import components.actionSnackbarComponent
 import components.captionTextComponent
 import data.DesktopDatabase
 import data.message.Message
-import ui.home.messageListComponent
 
 @Composable
 fun firstReplyPageComponent(onDismissRequest: () -> Unit) {
