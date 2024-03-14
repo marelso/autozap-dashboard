@@ -3,7 +3,11 @@ package ui.home.message
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -15,6 +19,7 @@ import components.actionSnackbarComponent
 import components.captionTextComponent
 import data.DesktopDatabase
 import data.reply.Reply
+import ui.home.hexToColor
 
 @Composable
 fun otherRepliesPageComponent(onDismissRequest: () -> Unit) {
@@ -34,18 +39,20 @@ fun otherRepliesPageComponent(onDismissRequest: () -> Unit) {
         modifier = Modifier.background(color = MaterialTheme.colors.background).fillMaxSize().padding(horizontal = 16.dp).padding(top = 8.dp),
         content = {
             Column {
-                captionTextComponent(
-                    text = "Você pode usar as variáveis",
-                    maxLines = 1,
-                    fontWeight = 700,
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-
-                captionTextComponent(
-                    text = "\$nome, \$bio, \$contato",
-                    maxLines = 1,
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
+                Row {
+                    Icon(
+                        modifier = Modifier.size(24.dp).align(Alignment.Top),
+                        imageVector = Icons.Default.Warning,
+                        contentDescription = "Cuidado",
+                        tint = hexToColor("#F26549")
+                    )
+                    captionTextComponent(
+                        text = "Não utilize as variáveis da primeira resposta aqui!",
+                        maxLines = 3,
+                        fontWeight = 700,
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp).align(Alignment.Top)
+                    )
+                }
 
                 OutlinedTextField(
                     value = reply.value,
