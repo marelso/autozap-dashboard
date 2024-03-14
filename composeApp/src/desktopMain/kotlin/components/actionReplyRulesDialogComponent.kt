@@ -16,7 +16,7 @@ import ui.home.message.otherRepliesPageComponent
 
 @Composable
 fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
-    val tabs = listOf("Primeira resposta", "Outras respostas")
+    val tabs = listOf("Primeira resposta", "Próximas respostas")
     var selectedTabIndex by remember { mutableStateOf(0) }
     Dialog(onDismissRequest = onDismissRequest) {
         Column {
