@@ -13,7 +13,7 @@ class Reply(
     var id: Int,
 
     @ColumnInfo(name = "reply")
-    var message: String,
+    var reply: String,
 
     @ColumnInfo(name = "active")
     var active: Boolean
