@@ -1,10 +1,8 @@
 package ui.home.message
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
@@ -13,6 +11,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import components.actionBottomBarComponent
+import components.actionSnackbarComponent
 import components.captionTextComponent
 import data.DesktopDatabase
 import data.message.Message
@@ -35,6 +34,7 @@ fun otherRepliesPageComponent(onDismissRequest: () -> Unit) {
     }
     var isSnackbarVisible by remember { mutableStateOf(false) }
     Scaffold(
+        modifier = Modifier.background(color = MaterialTheme.colors.background).fillMaxSize().padding(horizontal = 16.dp).padding(top = 8.dp),
         content = {
             Column {
                 captionTextComponent(
@@ -92,6 +92,12 @@ fun otherRepliesPageComponent(onDismissRequest: () -> Unit) {
                 )
 
             }
+            actionSnackbarComponent(
+                modifier = Modifier,
+                isVisible = isSnackbarVisible,
+                text = "Mensagem copiada!",
+                onDismiss = { isSnackbarVisible = false }
+            )
         },
         bottomBar = {
             actionBottomBarComponent(
@@ -101,7 +107,11 @@ fun otherRepliesPageComponent(onDismissRequest: () -> Unit) {
                 trailingTextEnabled = isApplyEnabled,
                 arrangement = Arrangement.End,
                 onDismissRequest = { onDismissRequest() },
-                onConfirmation = {}
+                onConfirmation = {
+                    selectedOption.value?.let {
+                        replyDao.setActive(it.id)
+                        onDismissRequest()
+                    }}
             )
         }
     )
