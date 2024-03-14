@@ -1,4 +1,4 @@
-package data
+package data.message
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -11,11 +11,13 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
         connection.createStatement().use { statement ->
             statement.executeQuery(query).use { resultSet ->
                 while (resultSet.next()) {
-                    messages.add(Message(
+                    messages.add(
+                        Message(
                         id = resultSet.getInt("id"),
                         message = resultSet.getString("message"),
                         active = resultSet.getBoolean("active")
-                    ))
+                    )
+                    )
                 }
             }
         }

@@ -1,4 +1,4 @@
-package data
+package data.attendant
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo

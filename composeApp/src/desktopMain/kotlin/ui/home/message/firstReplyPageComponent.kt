@@ -14,7 +14,7 @@ import components.actionBottomBarComponent
 import components.actionSnackbarComponent
 import components.captionTextComponent
 import data.DesktopDatabase
-import data.Message
+import data.message.Message
 import ui.home.messageListComponent
 
 @Composable

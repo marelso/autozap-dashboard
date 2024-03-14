@@ -17,7 +17,7 @@ import components.actionServiceControlComponent
 import components.headline0Component
 import components.headline1Component
 import components.subtitleComponent
-import data.Attendant
+import data.attendant.Attendant
 import ui.home.items.attendantItemComponent
 
 @Composable

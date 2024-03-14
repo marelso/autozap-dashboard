@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
 import components.actionDialogComponent
-import data.Attendant
+import data.attendant.Attendant
 
 @Composable
 fun attendantCreateComponent(

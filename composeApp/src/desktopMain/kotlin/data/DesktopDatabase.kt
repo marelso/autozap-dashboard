@@ -1,5 +1,9 @@
 package data
 
+import data.attendant.AttendantDao
+import data.attendant.AttendantDaoImpl
+import data.message.MessageDao
+import data.message.MessageDaoImpl
 import java.sql.Connection
 import java.sql.DriverManager
 

@@ -1,4 +1,4 @@
-package data
+package data.attendant
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

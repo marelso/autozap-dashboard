@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import components.actionReplyRulesDialogComponent
 import components.actionSettingsDialogComponent
-import data.Attendant
+import data.attendant.Attendant
 import data.DesktopDatabase
 import data.WindowsServiceManager
 import kotlinx.coroutines.flow.MutableStateFlow

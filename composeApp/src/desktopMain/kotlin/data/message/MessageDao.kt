@@ -1,4 +1,4 @@
-package data
+package data.message
 
 import androidx.compose.runtime.MutableState
 import androidx.room.Insert
