@@ -23,13 +23,16 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
     }
 
     override fun insert(message: Message) {
-        val query = "INSERT INTO message (message, active) VALUES ('${message.message}', false)"
-        connection.prepareStatement(query).executeUpdate()
+        connection.prepareStatement("INSERT INTO message (message, active) VALUES (?, false)").apply {
+            setString(1, message.message)
+        }.executeUpdate()
     }
 
     override fun update(message: Message) {
-        val query = "UPDATE message set message = '${message.message}' WHERE id = ${message.id}"
-        connection.prepareStatement(query).executeUpdate()
+        connection.prepareStatement("UPDATE message set message = ? WHERE id = ?").apply {
+            setString(1, message.message)
+            setInt(2, message.id)
+        }.executeUpdate()
     }
 
     override fun deleteById(id: Int) {
