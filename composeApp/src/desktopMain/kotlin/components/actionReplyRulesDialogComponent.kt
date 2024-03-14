@@ -2,14 +2,13 @@ package components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import ui.home.message.firstReplyPageComponent
@@ -28,7 +27,7 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                         onClick = { selectedTabIndex = index },
                         modifier = Modifier.clickable {  selectedTabIndex = index  }.padding(16.dp)
                     ) {
-                        Text(title)
+                        Text(text = title, fontWeight = FontWeight.Bold)
                     }
                 }
             }
