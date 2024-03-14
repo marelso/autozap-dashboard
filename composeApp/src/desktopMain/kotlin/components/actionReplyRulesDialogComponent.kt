@@ -1,5 +1,6 @@
 package components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,7 +26,7 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                     Tab(
                         selected = index == selectedTabIndex,
                         onClick = { selectedTabIndex = index },
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.clickable {  selectedTabIndex = index  }.padding(16.dp)
                     ) {
                         Text(title)
                     }
