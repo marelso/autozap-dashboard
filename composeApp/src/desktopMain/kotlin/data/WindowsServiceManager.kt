@@ -1,11 +1,14 @@
 package data
 
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
 object WindowsServiceManager {
     private const val service = "autozap.exe"
 
     fun start() {
         try {
-            Runtime.getRuntime().exec("net start $service").waitFor()
+            execute("net start $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -13,7 +16,7 @@ object WindowsServiceManager {
 
     fun stop() {
         try {
-            Runtime.getRuntime().exec("net stop $service").waitFor()
+            execute("net stop $service").waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -22,9 +25,9 @@ object WindowsServiceManager {
     fun isRunning(): Boolean {
         try {
             val process = Runtime.getRuntime().exec("sc query $service")
-            val inputStream = process.inputStream.bufferedReader()
-            val output = inputStream.readText()
-            return output.contains("STATE") && output.contains("RUNNING")
+            val inputStream = BufferedReader(InputStreamReader(process.inputStream))
+            val output = inputStream.use(BufferedReader::readText)
+            return output.contains("RUNNING")
         } catch (e: Exception) {
             e.printStackTrace()
             return false
