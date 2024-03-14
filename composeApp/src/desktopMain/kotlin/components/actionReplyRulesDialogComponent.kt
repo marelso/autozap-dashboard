@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -14,6 +17,7 @@ import ui.home.messageListComponent
 
 @Composable
 fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val messageDao = DesktopDatabase.getInstance().getMessageDao()
     val messagesState by mutableStateOf(messageDao.fetch())
     val selectedOption = remember { mutableStateOf(messagesState.value.firstOrNull { it.active }) }
@@ -24,6 +28,7 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
     val isApplyEnabled by derivedStateOf {
         selectedOption.value != null
     }
+    var snackbarVisible by remember { mutableStateOf(false) }
     Dialog(onDismissRequest = onDismissRequest) {
         Scaffold(
             modifier = Modifier.background(color = MaterialTheme.colors.background).fillMaxSize().padding(32.dp),
@@ -45,7 +50,7 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                     OutlinedTextField(
                         value = message.value,
                         onValueChange = { message.value = it },
-                        maxLines = 3,
+                        maxLines = 4,
                         label = { Text("Mensagem") },
                         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
                     )
@@ -54,11 +59,13 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                         Button(
                             enabled = isSaveEnabled,
                             onClick = {
-                                messageDao.insert(Message(
-                                    id = 0,
-                                    message = message.value.text.trim(),
-                                    active = true
-                                ))
+                                messageDao.insert(
+                                    Message(
+                                        id = 0,
+                                        message = message.value.text.trim(),
+                                        active = true
+                                    )
+                                )
                                 messagesState.value = messageDao.fetch().value
                             },
                             content = { Text("Cadastrar") })
@@ -70,10 +77,24 @@ fun actionReplyRulesDialogComponent(onDismissRequest: () -> Unit) {
                         padding = it,
                         onSelection = { newSelectedOption ->
                             selectedOption.value = newSelectedOption
+                            selectedOption.value?.let {
+                                clipboardManager.setText(AnnotatedString(it.message))
+                                snackbarVisible = true
+                            }
+                        },
+                        onDelete = {
+                            messageDao.deleteById(it)
+                            messagesState.value = messageDao.fetch().value
                         }
                     )
 
                 }
+                actionSnackbarComponent(
+                    modifier = Modifier,
+                    isVisible = snackbarVisible,
+                    text = "Mensagem copiada!",
+                    onDismiss = { snackbarVisible = false }
+                )
             },
             bottomBar = {
                 Box(modifier = Modifier.fillMaxWidth().background(color = MaterialTheme.colors.background)) {
